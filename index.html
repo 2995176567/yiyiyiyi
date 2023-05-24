@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{margin: 0;
+			padding: 0;}
+			ul{list-style: none;}
+			.nav{
+				width: 500px;
+				height: 50px;
+				background-color: #5AC2E7;
+				margin:20px auto;
+				border-radius:10px;
+				font-size: 15px;
+			}
+			.nav>li{
+				float:left;
+				width: 100px;
+				height:50px;
+				text-align: center;
+				line-height:50px;
+			}
+			
+			.nav>li:nth-child(2)>ul{
+				display: none;
+			}
+			.nav>li:hover>ul{
+				display: block;
+			}
+			.nav>li>a{
+				display: inline-block;
+				color:black;
+				text-decoration: none;
+				width: 100px;
+				height:50px;
+			}
+			.nav>li>a:hover{
+				color:red;
+				background-color: yellow;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<ul class="nav">
+			<li><a href="#">牛逼</a></li>
+			<li><a href="#">克拉斯</a>
+				<ul>
+					<li><a href="#">胡闯王</a></li>
+					<li><a href="#">胡小闯</a></li>
+					<li><a href="#">胡闯皇</a></li>
+				</ul>
+			</li>
+			<li><a href="#">闯爷</a></li>
+			<li><a href="#">座山闯</a></li>
+			<li><a href="#">牛的</a></li>
+		</ul>
+	</body>
+</html>
