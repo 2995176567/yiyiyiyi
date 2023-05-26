@@ -15,9 +15,9 @@ function  create() {
         alert("ID或跳转地址不能为空！");
         return false;
     }
-    kd.href = 'https://2995176567.github.io/yiyiyiyi/'+myid.value+'&url='+url.value; 
+    kd.href = 'https://2995176567.github.io/yiyiyiyi/?id='+myid.value+'&url='+url.value; 
     kd.style = ''; 
-    kd.innerText = 'https://2995176567.github.io/yiyiyiyi/'+myid.value+'&url='+url.value; 
+    kd.innerText = 'https://2995176567.github.io/yiyiyiyi/?id='+myid.value+'&url='+url.value; 
 }
    </script>
    <p>1.本工具仅做学习交流使用，请勿用于非法用途！后果自负！</p>
