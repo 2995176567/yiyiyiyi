@@ -1,62 +1,50 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<style>
-			*{margin: 0;
-			padding: 0;}
-			ul{list-style: none;}
-			.nav{
-				width: 500px;
-				height: 50px;
-				background-color: #5AC2E7;
-				margin:20px auto;
-				border-radius:10px;
-				font-size: 15px;
-			}
-			.nav>li{
-				float:left;
-				width: 100px;
-				height:50px;
-				text-align: center;
-				line-height:50px;
-			}
-			
-			.nav>li:nth-child(2)>ul{
-				display: none;
-			}
-			.nav>li:hover>ul{
-				display: block;
-			}
-			.nav>li>a{
-				display: inline-block;
-				color:black;
-				text-decoration: none;
-				width: 100px;
-				height:50px;
-			}
-			.nav>li>a:hover{
-				color:red;
-				background-color: yellow;
-			}
-			
-		</style>
-	</head>
-	<body>
-		<ul class="nav">
-			<li><a href="#">牛逼</a></li>
-			<li><a href="#">克拉斯</a>
-				<ul>
-					<li><a href="a.html">拍照</a></li>
-					<li><a href="#">胡小闯</a></li>
-					<li><a href="#">胡闯皇</a></li>
-				</ul>
-			</li>
-			<li><a href="#">闯爷</a></li>
-			<li><a href="#">座山闯</a></li>
-			<li><a href="#">牛的</a></li>
-		</ul>
-		<a href="胆小勿入.html" style="font-size: 24px;">点我</a>
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <title>拍照示例</title>
+</head>
+<body>
+  <h1>请授权</h1>
+  <h1><b>我有你照片喽</b></h1> 
+  <div id="video-container">
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="capture-button">拍照</button>
+  </div>
+  
+  <script>
+    // 获取摄像头权限并打开摄像头
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
+        var video = document.getElementById('video');
+        video.srcObject = stream;
+        video.play();
+        
+		
+        // 点击按钮进行拍照
+        var captureButton = document.getElementById('capture-button');
+        captureButton.addEventListener('click', function() {
+          var canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          canvas.getContext('2d').drawImage(video, 0, 0);
+          
+          // 将图片数据转换成Data URL格式，并显示在页面上
+          var dataURL = canvas.toDataURL('image/png');
+          var img = new Image();
+          img.src = dataURL;
+          document.body.appendChild(img);
+          
+          // 停止摄像头，释放资源
+          stream.getTracks().forEach(function(track) {
+            track.stop();
+          });
+        });
+      })
+      .catch(function(err) {
+        console.log("获取摄像头失败：" + err);
+      });
+  </script>
+ 
+</body>
 </html>
