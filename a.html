@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>自动拍照上传</title>
+</head>
+<body>
+  <h1>自动拍照上传</h1>
+  <div id="cameraView"></div>
+  <script>
+    // 请求访问摄像头
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function (stream) {
+        // 创建一个 <video> 元素用于预览视频流
+        var video = document.createElement('video');
+        video.srcObject = stream;
+        video.setAttribute('autoplay', '');
+        document.getElementById('cameraView').appendChild(video);
+        
+        // 创建一个 <canvas> 元素用于绘制图像
+        var canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        var ctx = canvas.getContext('2d');
+        
+        // 定期从视频流中捕获图像并绘制在 canvas 上
+        setInterval(function () {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }, 500);
+        
+        // 等待一段时间后拍摄一张照片并上传到服务器
+        setTimeout(function () {
+          var dataURL = canvas.toDataURL('image/jpeg', 0.8);
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'upload.php', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              console.log(xhr.responseText);
+            }
+          };
+          xhr.send('image=' + encodeURIComponent(dataURL));
+        }, 5000); // 等待5秒后拍照
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+  </script>
+  <a href="b.html">这里！！！！！！！！！！！！！！！！！</a>
+</body>
+</html>
